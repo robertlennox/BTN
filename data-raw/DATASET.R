@@ -1,3 +1,12 @@
 ## code to prepare `DATASET` dataset goes here
 
-usethis::use_data(DATASET, overwrite = TRUE)
+setwd("C:/Users/rb501745/OneDrive - Dalhousie University/BTN/BTN/data-raw")
+
+osterfjord<-sf::st_read("StudySite.shp")
+usethis::use_data(osterfjord, overwrite = TRUE)
+
+vosso<-sf::st_read("Boniteringspolygon.shp")
+usethis::use_data(vosso, overwrite = TRUE)
+
+suldal<-sf::st_read("suldalmap.kml")
+usethis::use_data(vosso, overwrite = TRUE)
