@@ -2,7 +2,7 @@
 
 setwd("C:/Users/rb501745/OneDrive - Dalhousie University/BTN/BTN/data-raw")
 
-osterfjord<-sf::st_read("StudySite.shp")
+osterfjord<-sf::st_read("fjord.shp")
 usethis::use_data(osterfjord, overwrite = TRUE)
 
 vosso<-sf::st_read("Boniteringspolygon.shp")
