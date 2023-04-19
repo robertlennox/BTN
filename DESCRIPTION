@@ -1,11 +1,28 @@
 Package: BTN
-Title: helper functions BTN
-Version: 0.0.0.9000
-Authors@R: 
-    person("Robert", "Lennox", "lennox@dal.ca", role = c("aut"),
-           comment = c(ORCID = "0000-0003-1010-0577"))
-Description: Helper functions
-License: MIT + file LICENSE
+Type: Package
+Title: Functions for handling acoutic telemetry data from the Bergen Telemetry Network
+Version: 0.1.0
+Author: Robert Lennox
+Maintainer: The package maintainer <lennox@dal.ca>
+Description: Helper functions for managing data for the Bergen Telemetry Network
+License: CC0
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    data.table,
+    DBI,
+    dplyr,
+    lubridate,
+    magrittr,
+    RSQLite,
+    beepr,
+    sf,
+    tidyr
+URL: https://github.com/robertlennox/BTN
+BugReports: https://github.com/robertlennox/BTN/issues
 RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
