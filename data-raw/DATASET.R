@@ -10,3 +10,6 @@ usethis::use_data(vosso, overwrite = TRUE)
 
 suldal<-sf::st_read("suldalmap.kml")
 usethis::use_data(vosso, overwrite = TRUE)
+
+aurland<-sf::st_read("aurland.shp")
+usethis::use_data(aurland, overwrite = TRUE)
