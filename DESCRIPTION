@@ -1,9 +1,7 @@
 Package: BTN
 Title: BTN functions
 Version: 0.0.0.9000
-Authors@R: 
-    person("Robert", "Lennox", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "https://orcid.org/0000-0003-1010-0577"))
+Authors@R: Robert Lennox
 Description: Load Thelma tbdb
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
