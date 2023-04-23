@@ -8,8 +8,9 @@ usethis::use_data(osterfjord, overwrite = TRUE)
 vosso<-sf::st_read("Boniteringspolygon.shp")
 usethis::use_data(vosso, overwrite = TRUE)
 
-suldal<-sf::st_read("suldalmap.kml")
+suldal<-sf::st_read("suldalmap.kml") %>% dplyr::select(Name)
 usethis::use_data(vosso, overwrite = TRUE)
 
 aurland<-sf::st_read("aurland.shp")
 usethis::use_data(aurland, overwrite = TRUE)
+
