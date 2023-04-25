@@ -6,8 +6,11 @@
 #' @import magrittr
 #' @import dplyr
 #' @import tidyr
+#' @import yaps
+#' @import purrr
 #' @param fish_detecions is the object containing the YAPS formatted fish detections
 #' @param sync_model is the chosen synchronization model from YAPS
+#' @param hydros is the formatted hydrophone data.table
 #' @param transmitter_ID is the transmitter ID desired to be positioned
 #' @param rbi_min is the minimum time of the tag transmissions, default is 60
 #' @param rbi_max is the maximim time of the tag transmissions, default is 120
@@ -19,12 +22,12 @@
 #'
 #' @export
 
-yaps_all<-function(fish_detections, sync_model, transmitter_ID,
+yaps_all<-function(fish_detections, sync_model, hydros, transmitter_ID,
                    rbi_min=60, rbi_max=120, nruns=5){
   tryCatch({
 
-    dat <- applySync(toa=fish_detections %>% # sync model for one download
-                       dplyr::filter(lubridate::date(ts)==date) %>%
+    dat <- yaps::applySync(toa=fish_detections %>% # sync model for one download
+                       dplyr::filter(lubridate::date(.data$ts)==date) %>%
                        droplevels() %>%
                        data.table::setDT %>%
                        split(.$tag) %>%
@@ -47,7 +50,7 @@ yaps_all<-function(fish_detections, sync_model, transmitter_ID,
 
     magicYAPS<-function(x){
       tryCatch({yaps::runYaps(
-        getInp(hydros_yaps,
+        yaps::getInp(hydros_yaps,
                toa,
                E_dist="Mixture",
                n_ss=2,
@@ -63,7 +66,7 @@ yaps_all<-function(fish_detections, sync_model, transmitter_ID,
         error=function(e){NA})}
 
     YAPS_list<-nruns %>%
-      rerun(magicYAPS())
+      purrr::rerun(magicYAPS())
 
     magic<-YAPS_list %>%  # the magic number
       purrr::map(purrr::pluck(4)) %>% # get the AIC cols
@@ -77,11 +80,11 @@ yaps_all<-function(fish_detections, sync_model, transmitter_ID,
     final_track<-YAPS_list %>%
       purrr::discard(., ~any(is.na(.x))) %>%
       purrr::compact() %>%
-      purr::keep(., as_mapper(~.x$obj %>% # keep only the run with the lowest AIC
+      purr::keep(., purrr::as_mapper(~.x$obj %>% # keep only the run with the lowest AIC
                           purrr::pluck(1) == magic)) %>%
       purrr::pluck(1) %>%
       purrr::pluck(8) %>%
       tidyr::as_tibble %>%
-      dplyr::mutate(dat %>% dplyr::distinct(tag))},
+      dplyr::mutate(dat %>% dplyr::distinct(.data$tag))},
     error=function(e){NA})
 }
