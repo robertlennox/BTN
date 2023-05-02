@@ -17,9 +17,7 @@ hatch = function(tbdb_file) {
   tbrSerialNo <- tagID <- epo <- frac <- usTimestamp <- tagSNR <- tagCodeType <- NULL
   temperature <- tbrSerialNo <- ambientNoise <- ambientNoisePeak <- secTimestampUTC  <- NULL
   tagData <- dt_utc <- dt_sec_utc  <- NULL
-
-
-  con = DBI::dbConnect(RSQLite::SQLite(), dbname = tbdb_file)
+con = DBI::dbConnect(RSQLite::SQLite(), dbname = tbdb_file)
 
   #To see all available tables:
   #print(DBI::dbListObjects(con))
