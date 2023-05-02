@@ -2,11 +2,8 @@
 
 export(hatch)
 export(smoltify)
-export(yaps_all)
 import(DBI)
 import(data.table)
 import(dplyr)
 import(magrittr)
-import(purrr)
 import(tidyr)
-import(yaps)
