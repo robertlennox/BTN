@@ -44,7 +44,7 @@ con = DBI::dbConnect(RSQLite::SQLite(), dbname = tbdb_file)
   dets<- detections %>%
     dplyr::mutate(dt=lubridate::with_tz(.data$dt_utc, "Europe/Oslo")) %>%
     dplyr::select(.data$dt, .data$dt_utc, .data$epo, .data$frac,
-                  .data$serial, .data$ID, .data$Data) %>%
+                  .data$serial, .data$tagCodeType, .data$ID, .data$Data) %>%
     dplyr::mutate(dti=lubridate::round_date(.data$dt, "10 mins")) %>%
     dplyr::left_join(sensors %>%
                        dplyr::mutate(dt=lubridate::with_tz(.data$dt_utc, "Europe/Oslo")) %>%
