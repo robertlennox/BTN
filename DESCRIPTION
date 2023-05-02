@@ -20,7 +20,6 @@ Imports:
     RSQLite,
     beepr,
     sf,
-    yaps,
     purrr,
     tidyr
 URL: https://github.com/robertlennox/BTN
