@@ -14,7 +14,7 @@
 #' @export
 
 hatch = function(tbdb_file) {
-  tbrSerialNo <- tagID <- epo <- frac <- usTimestamp <- tagSNR <- NULL
+  tbrSerialNo <- tagID <- epo <- frac <- usTimestamp <- tagSNR <- tagCodeType <- NULL
   temperature <- tbrSerialNo <- ambientNoise <- ambientNoisePeak <- secTimestampUTC  <- NULL
   tagData <- dt_utc <- dt_sec_utc  <- NULL
 
