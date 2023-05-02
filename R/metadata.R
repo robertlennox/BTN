@@ -19,7 +19,7 @@
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 
 smoltify<-function(meta, receivers, detections) {
-  ID <- n_ID <- key <- value <- Vendor <- Transmitter <- NULL
+  ID <- n_ID <- key <- value <- Vendor <- Transmitter <- tagCodeType <- NULL
   oid <- lon <- lat <- value <- start <- end <- NULL
   Station <- Receiver <- Habitat <- dmy <- sensor <- Spp <- NULL
   Angler <- Project <- fate <- fatedate <- TL <- NULL
@@ -27,7 +27,7 @@ smoltify<-function(meta, receivers, detections) {
 
   m<-meta %>%
     dplyr::mutate(ID=as.numeric(.data$ID)) %>%
-    dplyr::distinct(.data$Vendor, .data$ID, .data$n_ID) %>%
+    dplyr::distinct(.data$Vendor, .data$tagCodeType, .data$ID, .data$n_ID) %>%
     dplyr::mutate(n_ID=n_ID-1) %>%
     dplyr::mutate(ID2=dplyr::case_when(.data$n_ID==0 ~ NA_real_,
                                        .data$n_ID>0 ~ ID+1)) %>%
@@ -112,10 +112,10 @@ smoltify<-function(meta, receivers, detections) {
     dplyr::left_join(m %>%
                        dplyr::mutate(ID=as.integer(ID)) %>%
                        dplyr::rename(Project=5) %>%
-                       dplyr::select(ID, oid, dmy, sensor, Spp, TL, Angler,
+                       dplyr::select(ID, oid, tagCodeType, dmy, sensor, Spp, TL, Angler,
                                      fate, fatedate,
                                      Project, Transmitter, "Capture site", "Release Site"),
-                     by="ID")
+                     by=c("ID", "tagCodeType"))
   return(dets)
 
 }

@@ -29,6 +29,7 @@ hatch = function(tbdb_file) {
                                                                          ID=tagID,
                                                                          epo = secTimestampUTC,
                                                                          Data=tagData,
+                                                                         tagCodeType,
                                                                          frac=usTimestamp/1000000,
                                                                          SNR=tagSNR
                                                                        )][,
