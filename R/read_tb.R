@@ -6,11 +6,8 @@
 #' @import magrittr
 #' @import dplyr
 #' @import tidyr
+#' @import DBI
 #' @param tbdb_file is the name of the thelma database
-#' @examples
-#' hatch(tbdb_file) where tbdb_file is the file path to a thelma database
-#' e.g. "PACE.tbdb"
-#'
 #' @export
 
 hatch = function(tbdb_file) {

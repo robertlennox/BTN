@@ -13,9 +13,3 @@
 \description{
 functions to get receiver and tagging metadata into session
 }
-\examples{
-smoltify(meta, rec, det) where metadata and rec are loaded from google sheets
-using gsheet::gsheet2tbl(url) or similar
-the det object should be loaded using the hatch function also in this package
-
-}

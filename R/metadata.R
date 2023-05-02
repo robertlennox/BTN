@@ -9,11 +9,6 @@
 #' @param meta is an object brought in from the tagging metadata
 #' @param receivers is an object brought in from the receivers sheet
 #' @param detections is an object derived from the read_tb function
-#' @examples
-#' smoltify(meta, rec, det) where metadata and rec are loaded from google sheets
-#' using gsheet::gsheet2tbl(url) or similar
-#' the det object should be loaded using the hatch function also in this package
-#'
 #' @export
 
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))

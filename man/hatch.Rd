@@ -12,8 +12,3 @@ hatch(tbdb_file)
 \description{
 function to read in and manipulate Thelma DB
 }
-\examples{
-hatch(tbdb_file) where tbdb_file is the file path to a thelma database
-e.g. "PACE.tbdb"
-
-}
