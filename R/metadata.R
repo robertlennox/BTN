@@ -79,8 +79,8 @@ smoltify<-function(meta, receivers, detections) {
                                 !grepl("-", .data$Transmitter)~"ID")) %>%
     dplyr::filter(!is.na(.data$key) | .data$Vendor=="Vemco") %>%
     dplyr::rename(sensor=.data$key, oid=.data$ID, ID=.data$value) %>%
-    mutate(.data$dmy=lubridate::dmy(.data$dmy)) %>%
-    mutate(.data$fatedate=lubridate::parse_date_time(.data$fatedate, c("dmy", "dmy_HM")))
+    mutate(dmy=lubridate::dmy(.data$dmy)) %>%
+    mutate(fatedate=lubridate::parse_date_time(.data$fatedate, c("dmy", "dmy_HM")))
 
   rec<-receivers %>%
     as_tibble %>%
