@@ -112,7 +112,9 @@ smoltify<-function(meta, receivers, detections) {
                        dplyr::select(ID, oid, tagCodeType, dmy, sensor, Spp, TL, Angler,
                                      fate, fatedate,
                                      Project, Transmitter, "Capture site", "Release Site"),
-                     by=c("ID", "tagCodeType"))
+                     by=c("ID", "tagCodeType")) %>%
+    dplyr::filter(lubridate::date(dt)>=.data$dmy) %>%
+    dplyr::filter(dt<fatedate | is.na(fatedate))
   return(dets)
 
 }
