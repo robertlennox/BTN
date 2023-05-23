@@ -87,9 +87,9 @@ smoltify<-function(meta, receivers, detections) {
     sf::st_as_sf(., coords=c("lon", "lat")) %>%
     sf::st_set_crs(4326) %>%
     sf::st_transform(32633) %>%
-    as(., "Spatial") %>%
+    methods::as(., "Spatial") %>%
     as_tibble %>%
-    dplyr::rename(lon=coords.x1, lat=coords.x2)
+    dplyr::rename(lon=.data$coords.x1, lat=.data$coords.x2)
 
   receiver_locations<-seq.Date(as.Date("2020-01-01"),
                                as.Date(Sys.Date()), by="day") %>%
@@ -112,8 +112,8 @@ smoltify<-function(meta, receivers, detections) {
                                      fate, fatedate,
                                      Project, Transmitter, "Capture site", "Release Site"),
                      by=c("ID", "tagCodeType")) %>%
-    dplyr::filter(lubridate::date(dt)>=.data$dmy) %>%
-    dplyr::filter(dt<fatedate | is.na(fatedate))
+    dplyr::filter(lubridate::date(.data$dt)>=.data$dmy) %>%
+    dplyr::filter(.data$dt<fatedate | is.na(.data$fatedate))
   return(dets)
 
 }
