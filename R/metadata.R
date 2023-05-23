@@ -8,7 +8,6 @@
 #' @import tidyr
 #' @param meta is an object brought in from the tagging metadata using the gsheet::gsheet2tbl function
 #' @param receivers is an object brought in from the receivers sheet using the gsheet::gsheet2tbl function
-#' @param detections is an object derived from the BTN::hatch function with your .tbdb file from Thelma Biotel
 #' @export
 
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))

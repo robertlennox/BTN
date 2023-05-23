@@ -7,8 +7,6 @@
 \item{meta}{is an object brought in from the tagging metadata using the gsheet::gsheet2tbl function}
 
 \item{receivers}{is an object brought in from the receivers sheet using the gsheet::gsheet2tbl function}
-
-\item{detections}{is an object derived from the BTN::hatch function with your .tbdb file from Thelma Biotel}
 }
 \description{
 functions to get receiver and tagging metadata into session
