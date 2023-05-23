@@ -1,5 +1,5 @@
 #'
-#' function to read in and manipulate Thelma DB
+#' hatch is a function developed with code partly contributed by Eli Pickholtz to read in and manipulate Thelma DB files
 #'
 #' @name hatch
 #' @import data.table
@@ -7,7 +7,9 @@
 #' @import dplyr
 #' @import tidyr
 #' @import DBI
-#' @param tbdb_file is the name of the thelma database
+#' @param tbdb_file is the name of the thelma database e.g. "PACE.tbdb"
+#' @returns a data.table of detections derived from the tbdb file, named something like det
+#' @examples you may run det <- hatch("PACE.tbdb")
 #' @export
 
 hatch = function(tbdb_file) {
