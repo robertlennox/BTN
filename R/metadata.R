@@ -10,9 +10,6 @@
 #' @param receivers is an object brought in from the receivers sheet using the gsheet::gsheet2tbl function
 #' @param detections is an object derived from the BTN::hatch function with your .tbdb file from Thelma Biotel
 #' @returns a data.table of detections matched with receiver coordinates and tag metadata from BTN
-#' @examples
-#' # dets <- smoltify(meta, rec, det)
-#'
 #' @export
 
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))

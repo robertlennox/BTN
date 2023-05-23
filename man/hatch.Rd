@@ -15,7 +15,3 @@ a data.table of detections derived from the tbdb file, named something like det
 \description{
 hatch is a function developed with code partly contributed by Eli Pickholtz to read in and manipulate Thelma DB files
 }
-\examples{
-# example code
- you may run det <- hatch("PACE.tbdb")
-}

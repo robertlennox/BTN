@@ -16,7 +16,3 @@ a data.table of detections matched with receiver coordinates and tag metadata fr
 \description{
 functions to get receiver and tagging metadata into session
 }
-\examples{
-# dets <- smoltify(meta, rec, det)
-
-}
