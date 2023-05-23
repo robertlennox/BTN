@@ -8,6 +8,7 @@
 #' @import tidyr
 #' @import DBI
 #' @param tbdb_file is the name of the thelma database e.g. "PACE.tbdb"
+#' @export
 
 hatch = function(tbdb_file) {
   tbrSerialNo <- tagID <- epo <- frac <- usTimestamp <- tagSNR <- tagCodeType <- NULL
