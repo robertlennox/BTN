@@ -1,5 +1,4 @@
 #'
-#' hatch is a function developed with code partly contributed by Eli Pickholtz to read in and manipulate Thelma DB files
 #'
 #' @name hatch
 #' @import data.table
