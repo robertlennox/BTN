@@ -1,4 +1,5 @@
 #'
+#' function to import data from Thelma tbdb
 #'
 #' @name hatch
 #' @import data.table
