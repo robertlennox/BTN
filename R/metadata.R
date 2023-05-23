@@ -94,7 +94,7 @@ smoltify<-function(meta, receivers, detections) {
   receiver_locations<-seq.Date(as.Date("2020-01-01"),
                                as.Date(Sys.Date()), by="day") %>%
     tidyr::expand_grid(., rec) %>%
-    dplyr::mutate(end=dplyr::case_when(end=="" |
+    dplyr::mutate(end=dplyr::case_when(.data$end=="" |
                                          is.na(.data$end)~ Sys.Date(), T~lubridate::dmy(.data$end))) %>%
     dplyr::rename(value=1) %>%
     dplyr::filter(.data$value>lubridate::dmy(.data$start) & .data$value<.data$end) %>%
