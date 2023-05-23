@@ -9,7 +9,9 @@
 #' @import DBI
 #' @param tbdb_file is the name of the thelma database e.g. "PACE.tbdb"
 #' @returns a data.table of detections derived from the tbdb file, named something like det
-#' @examples you may run det <- hatch("PACE.tbdb")
+#' @examples
+#' # example code
+#'  you may run det <- hatch("PACE.tbdb")
 #' @export
 
 hatch = function(tbdb_file) {

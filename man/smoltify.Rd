@@ -4,12 +4,19 @@
 \alias{smoltify}
 \title{functions to get receiver and tagging metadata into session}
 \arguments{
-\item{meta}{is an object brought in from the tagging metadata}
+\item{meta}{is an object brought in from the tagging metadata using the gsheet::gsheet2tbl function}
 
-\item{receivers}{is an object brought in from the receivers sheet}
+\item{receivers}{is an object brought in from the receivers sheet using the gsheet::gsheet2tbl function}
 
-\item{detections}{is an object derived from the read_tb function}
+\item{detections}{is an object derived from the BTN::hatch function with your .tbdb file from Thelma Biotel}
+}
+\value{
+a data.table of detections matched with receiver coordinates and tag metadata from BTN
 }
 \description{
 functions to get receiver and tagging metadata into session
+}
+\examples{
+# dets <- smoltify(meta, rec, det)
+
 }

@@ -2,13 +2,20 @@
 % Please edit documentation in R/read_tb.R
 \name{hatch}
 \alias{hatch}
-\title{function to read in and manipulate Thelma DB}
+\title{hatch is a function developed with code partly contributed by Eli Pickholtz to read in and manipulate Thelma DB files}
 \usage{
 hatch(tbdb_file)
 }
 \arguments{
-\item{tbdb_file}{is the name of the thelma database}
+\item{tbdb_file}{is the name of the thelma database e.g. "PACE.tbdb"}
+}
+\value{
+a data.table of detections derived from the tbdb file, named something like det
 }
 \description{
-function to read in and manipulate Thelma DB
+hatch is a function developed with code partly contributed by Eli Pickholtz to read in and manipulate Thelma DB files
+}
+\examples{
+# example code
+ you may run det <- hatch("PACE.tbdb")
 }
