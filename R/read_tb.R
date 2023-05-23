@@ -8,7 +8,6 @@
 #' @import tidyr
 #' @import DBI
 #' @param tbdb_file is the name of the thelma database e.g. "PACE.tbdb"
-#' @returns a data.table of detections derived from the tbdb file, named something like det
 
 hatch = function(tbdb_file) {
   tbrSerialNo <- tagID <- epo <- frac <- usTimestamp <- tagSNR <- tagCodeType <- NULL

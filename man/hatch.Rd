@@ -9,9 +9,6 @@ hatch(tbdb_file)
 \arguments{
 \item{tbdb_file}{is the name of the thelma database e.g. "PACE.tbdb"}
 }
-\value{
-a data.table of detections derived from the tbdb file, named something like det
-}
 \description{
 hatch is a function developed with code partly contributed by Eli Pickholtz to read in and manipulate Thelma DB files
 }
