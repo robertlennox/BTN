@@ -10,9 +10,6 @@
 
 \item{detections}{is an object derived from the BTN::hatch function with your .tbdb file from Thelma Biotel}
 }
-\value{
-a data.table of detections matched with receiver coordinates and tag metadata from BTN
-}
 \description{
 functions to get receiver and tagging metadata into session
 }
