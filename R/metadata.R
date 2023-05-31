@@ -109,7 +109,7 @@ smoltify<-function(meta, receivers, detections) {
                        dplyr::mutate(ID=as.integer(ID)) %>%
                        dplyr::rename(Project=5) %>%
                        dplyr::select(ID, oid, tagCodeType, dmy, sensor, Spp, TL, Angler,
-                                     fate, fatedate,
+                                     fate, fatedate, Sex,
                                      Project, Transmitter, "Capture site", "Release Site"),
                      by=c("ID", "tagCodeType")) %>%
     dplyr::filter(lubridate::date(.data$dt)>=.data$dmy) %>%
