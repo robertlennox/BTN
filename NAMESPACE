@@ -2,6 +2,7 @@
 
 export(gantt)
 export(hatch)
+export(signalSeries)
 export(smoltify)
 import(DBI)
 import(data.table)
