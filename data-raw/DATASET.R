@@ -16,4 +16,6 @@ usethis::use_data(vosso, overwrite = TRUE)
 aurland<-sf::st_read("aurland.shp")
 usethis::use_data(aurland, overwrite = TRUE)
 
+storel<-readRDS("sl.RDS")
+usethis::use_data(storel, overwrite = T)
 
