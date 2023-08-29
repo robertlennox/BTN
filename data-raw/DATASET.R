@@ -27,3 +27,6 @@ storel<-projectRaster(storel, crs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 
 
 usethis::use_data(storel, overwrite = T)
 
+isfjorden<-readRDS("isfjorden.RDS")
+
+usethis::use_data(isfjorden, overwrite=T)
