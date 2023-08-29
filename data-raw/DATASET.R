@@ -16,6 +16,14 @@ usethis::use_data(vosso, overwrite = TRUE)
 aurland<-sf::st_read("aurland.shp")
 usethis::use_data(aurland, overwrite = TRUE)
 
+require(sf)
+require(raster)
+require(tidyverse)
 storel<-readRDS("sl.RDS")
+storel<-raster::rasterFromXYZ(storel)
+storel[storel==0]<-NA
+crs(storel)<-"+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+storel<-projectRaster(storel, crs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+
 usethis::use_data(storel, overwrite = T)
 
