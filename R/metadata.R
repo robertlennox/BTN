@@ -55,7 +55,7 @@ smoltify<-function (meta, receivers, detections)
                                   grepl("-P", .data$Transmitter) & value - ID == 1 ~ "eaten",
                                   grepl("-TAD", .data$Transmitter) & value - ID == 0 ~ "temp",
                                   grepl("-TAD", .data$Transmitter) & value - ID == 1 ~ "accel",
-                                  grepl("-TAD", .data$Transmitter) & value - ID == 2 ~ "temp",
+                                  grepl("-TAD", .data$Transmitter) & value - ID == 2 ~ "depth",
                                   grepl("-DAT", .data$Transmitter) & value - ID == 0 ~ "depth",
                                   grepl("-DAT", .data$Transmitter) & value - ID == 1 ~ "accel",
                                   grepl("-DAT", .data$Transmitter) & value - ID == 2 ~ "temp",
