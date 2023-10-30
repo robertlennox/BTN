@@ -41,30 +41,28 @@ smoltify<-function (meta, receivers, detections)
                                                  -oid, -Vendor) %>%
     dplyr::rename(ID = oid) %>% right_join(meta %>%
                                              mutate(ID = as.numeric(.data$ID))) %>%
-    dplyr::mutate(key = case_when(grepl("-AT",
-                                        .data$Transmitter) & value - ID == 0 ~ "temp", grepl("A-LP",
-                                                                                             .data$Transmitter) ~ "accel",
-                                  grepl("-AT", .data$Transmitter) &
-                                    value - ID == 1 ~ "accel", grepl("-DT", .data$Transmitter) &
-                                    value - ID == 0 ~ "depth", grepl("-DT", .data$Transmitter) &
-                                    value - ID == 1 ~ "temp", grepl("MT-", .data$Transmitter) &
-                                    value - ID == 0 ~ "not eaten", grepl("MT-", .data$Transmitter) &
-                                    value - ID == 1 ~ "eaten", grepl("MT-", .data$Transmitter) &
-                                    value - ID == 2 ~ "temp", grepl("MT-", .data$Transmitter) &
-                                    value - ID == 3 ~ "temp2", grepl("-T", .data$Transmitter) &
-                                    value - ID == 0 ~ "temp", grepl("-P", .data$Transmitter) &
-                                    value - ID == 0 ~ "not eaten", grepl("-P", .data$Transmitter) &
-                                    value - ID == 1 ~ "eaten", grepl("-ADT", .data$Transmitter) &
-                                    value - ID == 0 ~ "temp", grepl("-ADT", .data$Transmitter) &
-                                    value - ID == 1 ~ "accel", grepl("-ADT", .data$Transmitter) &
-                                    value - ID == 2 ~ "temp", grepl("-DAT", .data$Transmitter) &
-                                    value - ID == 0 ~ "depth", grepl("-DAT", .data$Transmitter) &
-                                    value - ID == 1 ~ "accel", grepl("-DAT", .data$Transmitter) &
-                                    value - ID == 2 ~ "temp", grepl("-R", .data$Transmitter) &
-                                    value - ID == 0 ~ "range", grepl("-D", .data$Transmitter) &
-                                    value - ID == 0 ~ "depth", !grepl("-", .data$Transmitter) ~
-                                    "ID")) %>% dplyr::filter(!is.na(.data$key) | .data$Vendor ==
-                                                               "Vemco") %>% dplyr::rename(sensor = .data$key, oid = .data$ID,
+    dplyr::mutate(key = case_when(grepl("-AT", .data$Transmitter) & value - ID == 0 ~ "temp",
+                                  grepl("A-LP", .data$Transmitter) ~ "accel",
+                                  grepl("-AT", .data$Transmitter) &  value - ID == 1 ~ "accel",
+                                  grepl("-DT", .data$Transmitter) &  value - ID == 0 ~ "depth",
+                                  grepl("-DT", .data$Transmitter) &  value - ID == 1 ~ "temp",
+                                  grepl("MT-", .data$Transmitter) &  value - ID == 0 ~ "not eaten",
+                                  grepl("MT-", .data$Transmitter) & value - ID == 1 ~ "eaten",
+                                  grepl("MT-", .data$Transmitter) & value - ID == 2 ~ "temp",
+                                  grepl("MT-", .data$Transmitter) & value - ID == 3 ~ "temp2",
+                                  grepl("-T", .data$Transmitter) & value - ID == 0 ~ "temp",
+                                  grepl("-P", .data$Transmitter) & value - ID == 0 ~ "not eaten",
+                                  grepl("-P", .data$Transmitter) & value - ID == 1 ~ "eaten",
+                                  grepl("-TAD", .data$Transmitter) & value - ID == 0 ~ "temp",
+                                  grepl("-TAD", .data$Transmitter) & value - ID == 1 ~ "accel",
+                                  grepl("-TAD", .data$Transmitter) & value - ID == 2 ~ "temp",
+                                  grepl("-DAT", .data$Transmitter) & value - ID == 0 ~ "depth",
+                                  grepl("-DAT", .data$Transmitter) & value - ID == 1 ~ "accel",
+                                  grepl("-DAT", .data$Transmitter) & value - ID == 2 ~ "temp",
+                                  grepl("-R", .data$Transmitter) & value - ID == 0 ~ "range",
+                                  grepl("-D", .data$Transmitter) & value - ID == 0 ~ "depth",
+                                  !grepl("-", .data$Transmitter) ~ "ID")) %>%
+    dplyr::filter(!is.na(.data$key) | .data$Vendor == "Vemco") %>% dplyr::rename(sensor = .data$key, oid = .data$ID,
                                                                                           ID = .data$value) %>%
     mutate(dmy = lubridate::dmy(.data$dmy)) %>%
     mutate(fatedate = lubridate::parse_date_time(.data$fatedate,
