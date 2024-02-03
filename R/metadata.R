@@ -27,7 +27,10 @@ smoltify<-function (meta, receivers, detections)
                     .data$tagCodeType,
                     .data$ID,
                     .data$n_ID,
-                    .data$redeploy) %>%
+                    .data$redeploy,
+                    .data$temp,
+                    .data$depth,
+                    .data$accel) %>%
     dplyr::mutate(n_ID = n_ID - 1) %>%
     dplyr::mutate(ID2 = dplyr::case_when(.data$n_ID == 0 ~
                                            NA_real_, .data$n_ID > 0 ~ ID + 1)) %>%
@@ -73,17 +76,7 @@ smoltify<-function (meta, receivers, detections)
     dplyr::rename(Project="\nProject")
 
 
-
-
-
-
-
-
-
-
-
-
-  rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
+rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
     sf::st_as_sf(., coords = c("lon", "lat")) %>% sf::st_set_crs(4326) %>%
     sf::st_transform(32633) %>% methods::as(., "Spatial") %>%
     as_tibble %>% dplyr::rename(lon = .data$coords.x1, lat = .data$coords.x2)
@@ -109,8 +102,9 @@ smoltify<-function (meta, receivers, detections)
                        dplyr::mutate(ID = as.integer(ID)) %>%
                        dplyr::rename(Project = 5) %>% dplyr::select(ID,
                                                                     oid, tagCodeType, dmy, sensor, Spp, TL, Angler, fate,
-                                                                    fatedate, Sex, Project, Transmitter, "Capture site",
-                                                                    "Release Site"), by = c("ID", "tagCodeType")) %>%
+                                                                    fatedate, Sex, Project, Transmitter, cs="Capture site",
+                                                                    rs="Release Site", temp, depth, accel),
+                     by = c("ID", "tagCodeType")) %>%
     dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
     dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)) %>%
     bind_rows(detections %>%
@@ -125,10 +119,19 @@ smoltify<-function (meta, receivers, detections)
                                    dplyr::mutate(ID = as.integer(ID)) %>%
                                    dplyr::rename(Project = 5) %>% dplyr::select(ID,
                                                                                 oid, tagCodeType, dmy, sensor, Spp, TL, Angler, fate,
-                                                                                fatedate, Sex, Project, Transmitter, "Capture site",
-                                                                                "Release Site"), by = c("ID", "tagCodeType")) %>%
+                                                                                fatedate, Sex, Project, Transmitter, cs="Capture site",
+                                                                               rs= "Release Site", temp, depth, accel),
+                                 by = c("ID", "tagCodeType")) %>%
                 dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
                 dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)))
+
+  dets<-dets %>%
+    mutate(Data=case_when(sensor=="accel" ~ (Data*.$accel)/255,
+                          sensor=="depth" ~ (Data*.$depth)/255,
+                          sensor=="temp" ~ (Data*.$temp)/255,
+                          T~Data)) %>%
+    dplyr::select(-temp, -accel, -depth)
+
   return(dets)
 }
 
