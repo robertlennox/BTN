@@ -28,9 +28,9 @@ smoltify<-function (meta, receivers, detections)
                     .data$ID,
                     .data$n_ID,
                     .data$redeploy,
-                    .data$temp,
-                    .data$depth,
-                    .data$accel) %>%
+                    .data$eq_temp,
+                    .data$eq_depth,
+                    .data$eq_accel) %>%
     dplyr::mutate(n_ID = n_ID - 1) %>%
     dplyr::mutate(ID2 = dplyr::case_when(.data$n_ID == 0 ~
                                            NA_real_, .data$n_ID > 0 ~ ID + 1)) %>%
@@ -103,7 +103,7 @@ rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
                        dplyr::rename(Project = 5) %>% dplyr::select(ID,
                                                                     oid, tagCodeType, dmy, sensor, Spp, TL, Angler, fate,
                                                                     fatedate, Sex, Project, Transmitter, cs="Capture site",
-                                                                    rs="Release Site", temp, depth, accel),
+                                                                    rs="Release Site", eq_temp, eq_depth, eq_accel),
                      by = c("ID", "tagCodeType")) %>%
     dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
     dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)) %>%
@@ -120,17 +120,17 @@ rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
                                    dplyr::rename(Project = 5) %>% dplyr::select(ID,
                                                                                 oid, tagCodeType, dmy, sensor, Spp, TL, Angler, fate,
                                                                                 fatedate, Sex, Project, Transmitter, cs="Capture site",
-                                                                               rs= "Release Site", temp, depth, accel),
+                                                                               rs= "Release Site", eq_temp, eq_depth, eq_accel),
                                  by = c("ID", "tagCodeType")) %>%
                 dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
                 dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)))
 
   dets<-dets %>%
-    mutate(Data=case_when(sensor=="accel" ~ (Data*.$accel)/255,
-                          sensor=="depth" ~ (Data*.$depth)/255,
-                          sensor=="temp" ~ (Data*.$temp)/255,
+    mutate(Data=case_when(sensor=="accel" ~ (Data*.$eq_accel)/255,
+                          sensor=="depth" ~ (Data*.$eq_depth)/255,
+                          sensor=="temp" ~ (Data*.$eq_temp)/255,
                           T~Data)) %>%
-    dplyr::select(-temp, -accel, -depth)
+    dplyr::select(-eq_temp, -eq_accel, -eq_depth)
 
   return(dets)
 }
