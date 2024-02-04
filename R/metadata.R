@@ -125,8 +125,11 @@ rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
                 dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
                 dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)))
 
+keller_fun<-function(data, x)((data*25)-x)*0.01
+
   dets<-dets %>%
-    mutate(Data=case_when(sensor=="accel" ~ (Data*.$eq_accel)/255,
+    mutate(Data=case_when(grepl("LOST", Project) & sensor=="accel" ~ keller_fun(data=Data, x=.$eq_accel),
+                          !grepl("LOST", Project) & sensor=="accel" ~ (Data*.$eq_accel)/255,
                           sensor=="depth" ~ (Data*.$eq_depth)/255,
                           sensor=="temp" ~ (Data*.$eq_temp)/255,
                           T~Data)) %>%
