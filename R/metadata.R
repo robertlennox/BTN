@@ -128,9 +128,9 @@ rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
 keller_fun<-function(data, x)((data*25)-x)*0.01
 
   dets<-dets %>%
-    mutate(Data=case_when(grepl("LOST", Project) & sensor=="accel" ~ keller_fun(data=Data, x=.$eq_accel),
-                          !grepl("LOST", Project) & sensor=="accel" ~ (Data*.$eq_accel)/255,
-                          sensor=="depth" ~ (Data*.$eq_depth)/255,
+    mutate(Data=case_when(.$eq_depth==1000 & sensor=="depth" ~ keller_fun(data=Data, x=.$eq_depth),
+                          .$eq_depth!=1000 & sensor=="depth" ~ (Data*.$eq_accel)/255,
+                          sensor=="accel" ~ (Data*.$eq_accel)/255,
                           sensor=="temp" ~ (Data*.$eq_temp)/255,
                           T~Data)) %>%
     dplyr::select(-eq_temp, -eq_accel, -eq_depth)
