@@ -125,7 +125,7 @@ rec <- receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
                 dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
                 dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)))
 
-dets %>% mutate(Data = case_when(eq_depth==1000 & sensor=="depth" ~ ((Data*25)-1000)*0.01,
+  dets<-dets %>% mutate(Data = case_when(eq_depth==1000 & sensor=="depth" ~ ((Data*25)-1000)*0.01,
                                  eq_depth != 1000 & sensor == "depth" ~ (Data/255)*eq_depth,
                                  sensor == "accel" ~ (Data/255)*eq_accel,
                                  sensor == "temp" ~ (Data/255)*eq_temp, T ~ Data)) %>%
