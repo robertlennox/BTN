@@ -30,3 +30,8 @@ usethis::use_data(storel, overwrite = T)
 isfjorden<-readRDS("isfjorden.RDS")
 
 usethis::use_data(isfjorden, overwrite=T)
+
+orkla<-readRDS("JOdata.RDS")
+
+usethis::use_data(orkla, overwrite=T)
+
