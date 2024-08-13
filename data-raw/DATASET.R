@@ -49,3 +49,6 @@ no<-rnaturalearthhires::countries10 %>%
   st_crop(ymin=57, ymax=72, xmin=5, xmax=32)
 
 usethis::use_data(no, overwrite=T)
+
+radio<-readRDS("salmon-radio.RDS")
+usethis::use_data(radio, overwrite=T)
