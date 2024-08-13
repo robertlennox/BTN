@@ -35,3 +35,17 @@ orkla<-readRDS("JOdata.RDS")
 
 usethis::use_data(orkla, overwrite=T)
 
+otter<-readRDS("otter.RDS")
+
+usethis::use_data(otter, overwrite=T)
+
+require(tidyverse)
+require(sf)
+require(rnaturalearth)
+require(rnaturalearthhires)
+no<-rnaturalearthhires::countries10 %>%
+  dplyr::filter(SOV_A3=="NOR") %>%
+  st_as_sf() %>%
+  st_crop(ymin=57, ymax=72, xmin=5, xmax=32)
+
+usethis::use_data(no, overwrite=T)
