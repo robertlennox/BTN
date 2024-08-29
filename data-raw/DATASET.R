@@ -55,3 +55,6 @@ usethis::use_data(radio, overwrite=T)
 
 oxytrout<-readRDS("acceleration_MO2hrkg.RDS")
 usethis::use_data(oxytrout, overwrite=T)
+
+pace<-readRDS("pace-wp1.RDS")
+usethis::use_data(pace, overwrite=T)
