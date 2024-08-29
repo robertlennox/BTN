@@ -52,3 +52,6 @@ usethis::use_data(no, overwrite=T)
 
 radio<-readRDS("salmon-radio.RDS")
 usethis::use_data(radio, overwrite=T)
+
+oxytrout<-readRDS("acceleration_MO2hrkg.RDS")
+usethis::use_data(oxytrout, overwrite=T)
