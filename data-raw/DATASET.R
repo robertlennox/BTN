@@ -58,3 +58,6 @@ usethis::use_data(oxytrout, overwrite=T)
 
 pace<-readRDS("pace-wp1.RDS")
 usethis::use_data(pace, overwrite=T)
+
+isfjorden2<-readRDS("newisfjorden.RDS")
+usethis::use_data(isfjorden2, overwrite=T)
