@@ -202,9 +202,9 @@ dets <- dets %>% mutate(
       is.na(accel_slope) ~ (Data / 255) * eq_accel,
     sensor == "temp" & is.na(temp_slope) ~ (Data / 255) *
       eq_temp,
-    sensor=="temp" & !is.na(temp_slope) ~ eq_temp + (Data*temp_slope),
-    sensor=="depth" & !is.na(depth_slope) ~ eq_temp + (Data*depth_slope),
-    sensor=="accel" & !is.na(accel_slope) ~ eq_temp + (Data*accel_slope),
+    sensor=="temp" & !is.na(temp_slope) ~ as.numeric(eq_temp) + (Data*as.numeric(temp_slope)),
+    sensor=="depth" & !is.na(depth_slope) ~ as.numeric(eq_depth) + (Data*as.numeric(depth_slope)),
+    sensor=="accel" & !is.na(accel_slope) ~ as.numeric(eq_accel) + (Data*as.numeric(accel_slope)),
     T ~ Data
   )
 ) %>% dplyr::select(-eq_temp,-eq_accel,-eq_depth, -temp_slope, -depth_slope, -accel_slope)
