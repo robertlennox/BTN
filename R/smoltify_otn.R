@@ -210,7 +210,7 @@ dets <- dets %>% mutate(
 ) %>% dplyr::select(-eq_temp,-eq_accel,-eq_depth, -temp_slope, -depth_slope, -accel_slope)
 
 dets<-dets %>%
-  dplyr::select(Project, dt, dt_utc, epo, frac, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, dmy, fate, fatedate) %>%
+  dplyr::select(Project, dt, dt_utc, epo, frac, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, Sex, dmy, fate, fatedate) %>%
   mutate(TL=as.numeric(TL))
 
 return(dets)}
