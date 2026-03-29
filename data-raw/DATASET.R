@@ -9,7 +9,7 @@ usethis::use_data(osterfjord, overwrite = TRUE)
 
 vosso<-sf::st_read("Boniteringspolygon.shp") %>%
   sf::st_transform(32633)
-usethis::use_data(vosso, overwrite = TRUE)
+usethis::use_data(vosso, overwrite = TRUE) # vosso
 
 ost_bathy<-readRDS("osterfjord-bathy.RDS")
 usethis::use_data(ost_bathy, overwrite = TRUE)
