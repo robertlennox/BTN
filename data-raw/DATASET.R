@@ -3,25 +3,23 @@
 require(sf)
 
 
-dir.create("inst/extdata", recursive = TRUE, showWarnings = FALSE)
-
 sf::sf_use_s2(FALSE)
 osterfjord<-readRDS("osterfjord.RDS")
 saveRDS(osterfjord, "inst/extdata/osterfjord.rds")
 
-vosso<-readRDS("vosso.RDS") %>%
-  sf::st_transform(32633)
-usethis::use_data(vosso, overwrite = TRUE) # vosso
+vosso<-readRDS("vosso.RDS")
+saveRDS(vosso, "inst/extdata/vosso.rds")
+
 
 ost_bathy<-readRDS("osterfjord-bathy.RDS")
-usethis::use_data(ost_bathy, overwrite = TRUE)
+saveRDS(osterfjord-bathy, "inst/extdata/osterfjord-bathy.rds")
 
 
 suldal<-readRDS("suldal.RDS")
-usethis::use_data(suldal, overwrite = TRUE)
+saveRDS(suldal, "inst/extdata/suldal.rds")
 
 aurland<-readRDS("aurland.RDS")
-usethis::use_data(aurland, overwrite = TRUE)
+saveRDS(aurland, "inst/extdata/aurland.rds")
 
 require(sf)
 require(raster)
@@ -32,11 +30,12 @@ storel[storel==0]<-NA
 crs(storel)<-"+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
 storel<-projectRaster(storel, crs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
 
-usethis::use_data(storel, overwrite = T)
+saveRDS(storel, "inst/extdata/storel.rds")
+
 
 isfjorden<-readRDS("isfjorden.RDS")
 
-usethis::use_data(isfjorden, overwrite=T)
+saveRDS(isfjorden, "inst/extdata/isfjorden.rds")
 
 orkla<-readRDS("JOdata.RDS")
 
@@ -67,7 +66,7 @@ pace<-readRDS("pace-wp1.RDS")
 usethis::use_data(pace, overwrite=T)
 
 isfjorden2<-readRDS("newisfjorden.RDS")
-usethis::use_data(isfjorden2, overwrite=T)
+saveRDS(isfjorden2, "inst/extdata/isfjorden2.rds")
 
 
 
