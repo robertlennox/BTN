@@ -2,16 +2,21 @@
 
 setwd("C:/Users/rb501745/OneDrive - Dalhousie University/BTN/BTN/data-raw")
 
-osterfjord<-sf::st_read("fjord.shp")
-usethis::use_data(osterfjord, overwrite = TRUE) %>%
-  sf::st_transform(32633)
+require(sf)
+osterfjord<-sf::st_read("fjord.shp") %>%
+  st_transform(32633)
+usethis::use_data(osterfjord, overwrite = TRUE)
 
-vosso<-sf::st_read("Boniteringspolygon.shp")
-usethis::use_data(vosso, overwrite = TRUE) %>%
+vosso<-sf::st_read("Boniteringspolygon.shp") %>%
   sf::st_transform(32633)
-
-suldal<-sf::st_read("suldalmap.kml") %>% dplyr::select(Name)
 usethis::use_data(vosso, overwrite = TRUE)
+
+ost_bathy<-readRDS("osterfjord-bathy.RDS")
+usethis::use_data(ost_bathy, overwrite = TRUE)
+
+
+suldal<-readRDS("suldal.RDS")
+usethis::use_data(suldal, overwrite = TRUE)
 
 aurland<-sf::st_read("aurland.shp")
 usethis::use_data(aurland, overwrite = TRUE)
@@ -61,3 +66,4 @@ usethis::use_data(pace, overwrite=T)
 
 isfjorden2<-readRDS("newisfjorden.RDS")
 usethis::use_data(isfjorden2, overwrite=T)
+
