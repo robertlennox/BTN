@@ -5,6 +5,18 @@ vosso <- function() {
   )
 }
 
+storel <- function() {
+  readRDS(
+    system.file("extdata", "storel.rds", package = "BTN")
+  )
+}
+
+orkla <- function() {
+  readRDS(
+    system.file("extdata", "orkla.rds", package = "BTN")
+  )
+}
+
 osterfjord <- function() {
   readRDS(
     system.file("extdata", "osterfjord.rds", package = "BTN")
