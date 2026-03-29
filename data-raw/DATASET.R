@@ -3,6 +3,7 @@
 setwd("C:/Users/rb501745/OneDrive - Dalhousie University/BTN/BTN/data-raw")
 
 require(sf)
+sf::sf_use_s2(FALSE)
 osterfjord<-sf::st_read("fjord.shp") %>%
   st_transform(32633)
 usethis::use_data(osterfjord, overwrite = TRUE)
