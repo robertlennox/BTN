@@ -9,3 +9,66 @@ sf::sf_use_s2(FALSE)
 osterfjord<-readRDS("osterfjord.RDS")
 saveRDS(osterfjord, "inst/extdata/osterfjord.rds")
 
+vosso<-readRDS("vosso.RDS") %>%
+  sf::st_transform(32633)
+usethis::use_data(vosso, overwrite = TRUE) # vosso
+
+ost_bathy<-readRDS("osterfjord-bathy.RDS")
+usethis::use_data(ost_bathy, overwrite = TRUE)
+
+
+suldal<-readRDS("suldal.RDS")
+usethis::use_data(suldal, overwrite = TRUE)
+
+aurland<-readRDS("aurland.RDS")
+usethis::use_data(aurland, overwrite = TRUE)
+
+require(sf)
+require(raster)
+require(tidyverse)
+storel<-readRDS("sl.RDS")
+storel<-raster::rasterFromXYZ(storel)
+storel[storel==0]<-NA
+crs(storel)<-"+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+storel<-projectRaster(storel, crs="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+
+usethis::use_data(storel, overwrite = T)
+
+isfjorden<-readRDS("isfjorden.RDS")
+
+usethis::use_data(isfjorden, overwrite=T)
+
+orkla<-readRDS("JOdata.RDS")
+
+usethis::use_data(orkla, overwrite=T)
+
+otter<-readRDS("otter.RDS")
+
+usethis::use_data(otter, overwrite=T)
+
+require(tidyverse)
+require(sf)
+require(rnaturalearth)
+require(rnaturalearthhires)
+no<-rnaturalearthhires::countries10 %>%
+  dplyr::filter(SOV_A3=="NOR") %>%
+  st_as_sf() %>%
+  st_crop(ymin=57, ymax=72, xmin=5, xmax=32)
+
+usethis::use_data(no, overwrite=T)
+
+radio<-readRDS("salmon-radio.RDS")
+usethis::use_data(radio, overwrite=T)
+
+oxytrout<-readRDS("acceleration_MO2hrkg.RDS")
+usethis::use_data(oxytrout, overwrite=T)
+
+pace<-readRDS("pace-wp1.RDS")
+usethis::use_data(pace, overwrite=T)
+
+isfjorden2<-readRDS("newisfjorden.RDS")
+usethis::use_data(isfjorden2, overwrite=T)
+
+
+
+
