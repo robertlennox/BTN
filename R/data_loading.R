@@ -7,13 +7,13 @@ vosso <- function() {
 
 storel <- function() {
   readRDS(
-    system.file("extdata", "storel.RDS", package = "BTN")
+    system.file("extdata", "sl.RDS", package = "BTN")
   )
 }
 
 orkla <- function() {
   readRDS(
-    system.file("extdata", "orkla.RDS", package = "BTN")
+    system.file("extdata", "JOdata.RDS", package = "BTN")
   )
 }
 
@@ -25,13 +25,13 @@ osterfjord <- function() {
 
 pace <- function() {
   readRDS(
-    system.file("extdata", "pace.RDS", package = "BTN")
+    system.file("extdata", "pace-wp1.RDS", package = "BTN")
   )
 }
 
 oxytrout <- function() {
   readRDS(
-    system.file("extdata", "oxytrout.RDS", package = "BTN")
+    system.file("extdata", "acceleration_MO2hrkg.RDS", package = "BTN")
   )
 }
 
@@ -44,7 +44,7 @@ otter <- function() {
 
 radio <- function() {
   readRDS(
-    system.file("extdata", "radio.RDS", package = "BTN")
+    system.file("extdata", "salmon-radio.RDS", package = "BTN")
   )
 }
 
@@ -62,7 +62,7 @@ suldal <- function() {
 
 isfjorden2 <- function() {
   readRDS(
-    system.file("extdata", "isfjorden2.RDS", package = "BTN")
+    system.file("extdata", "newisfjorden.RDS", package = "BTN")
   )
 }
 
