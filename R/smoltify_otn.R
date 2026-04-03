@@ -90,7 +90,7 @@ m<-meta %>%
                                 grepl("-DTA", .data$Transmitter) & value - ID == 2 ~ "accel",
                                 grepl("-R", .data$Transmitter) & value - ID == 0 ~ "range",
                                 grepl("-D", .data$Transmitter) & value - ID == 0 ~ "depth",
-                                !grepl("-", .data$Transmitter) ~ "ID")) %>%
+                                !grepl("-", .data$Transmitter) | grepl("ID", Transmitter) ~ "ID")) %>%
   dplyr::filter(!is.na(.data$key) | .data$Vendor == "Vemco") %>%
   dplyr::rename(sensor = .data$key, oid = .data$ID,
                 ID = .data$value) %>% mutate(dmy = lubridate::dmy(.data$dmy)) %>%
