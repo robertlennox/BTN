@@ -1,7 +1,7 @@
 #'
 #' functions to get receiver and tagging metadata into session
 #'
-#' @name smoltify2 for when you do not want to eliminate the dead fish
+#' @name smoltify2
 #' @import data.table
 #' @import magrittr
 #' @import dplyr

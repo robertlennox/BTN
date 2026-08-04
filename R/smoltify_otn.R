@@ -1,7 +1,7 @@
 #'
 #' functions to get receiver and tagging metadata into session
 #'
-#' @name smoltify_otn for when you do not want to eliminate the dead fish
+#' @name smoltify_otn
 #' @import data.table
 #' @import magrittr
 #' @import dplyr
@@ -73,6 +73,14 @@ m<-meta %>%
                                 grepl("-T", .data$Transmitter) &  value - ID == 0 ~ "temp",
                                 grepl("-P", .data$Transmitter) &  value - ID == 0 ~ "not eaten",
                                 grepl("-P", .data$Transmitter) &  value - ID == 1 ~ "eaten",
+                                grepl("-AD", .data$Transmitter) &  value - ID == 0 ~ "accel",
+                                grepl("-AD", .data$Transmitter) &  value - ID == 1 ~ "depth",
+                                grepl("-DA", .data$Transmitter) &  value - ID == 0 ~ "depth",
+                                grepl("-DA", .data$Transmitter) &  value - ID == 1 ~ "accel",
+                                grepl("-TA", .data$Transmitter) &  value - ID == 0 ~ "temp",
+                                grepl("-TA", .data$Transmitter) &  value - ID == 1 ~ "accel",
+                                grepl("-AT", .data$Transmitter) &  value - ID == 0 ~ "accel",
+                                grepl("-AT", .data$Transmitter) &  value - ID == 1 ~ "temp",
                                 grepl("-TAD", .data$Transmitter) & value - ID == 0 ~ "temp",
                                 grepl("-TAD", .data$Transmitter) & value - ID == 1 ~ "accel",
                                 grepl("-TAD", .data$Transmitter) & value - ID == 2 ~ "depth",
