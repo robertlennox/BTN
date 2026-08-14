@@ -71,3 +71,17 @@ isfjorden <- function() {
     system.file("extdata", "isfjorden.RDS", package = "BTN")
   )
 }
+
+#' @export
+stamnes <- function() {
+  readRDS(
+    system.file("extdata", "stamnes.RDS", package = "BTN")
+  )
+}
+
+#' @export
+stang <- function() {
+  readRDS(
+    system.file("extdata", "stang.RDS", package = "BTN")
+  )
+}
