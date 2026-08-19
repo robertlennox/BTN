@@ -32,7 +32,8 @@ meta <- meta %>%
                 FL="LENGTH (m)",
                 TL="LENGTH2 (m)",
                 Sex=SEX,
-                Transmitter=.data$TAG_MODEL) %>%
+                Transmitter=.data$TAG_MODEL,
+                end=EST_TAG_LIFE) %>%
   dplyr::mutate(ID = as.numeric(.data$ID))
 
 m<-meta %>%
@@ -104,6 +105,9 @@ m<-meta %>%
                 ID = .data$value) %>% mutate(dmy = lubridate::dmy(.data$dmy)) %>%
   mutate(fatedate = lubridate::parse_date_time(.data$fatedate,
                                                c("dmy", "dmy_HM")))
+
+m<-m %>%
+  dplyr::mutate(end=dmy+lubridate::days(dmy))
 
 rec <-
   receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
@@ -224,7 +228,12 @@ dets <- dets %>% mutate(
 ) %>% dplyr::select(-eq_temp,-eq_accel,-eq_depth, -temp_slope, -depth_slope, -accel_slope)
 
 dets<-dets %>%
+  dplyr::filter(date(dt)<=end | is.na(end))
+
+dets<-dets %>%
   dplyr::select(Project, dt, dt_utc, epo, frac, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, Sex, dmy, fate, fatedate) %>%
   mutate(TL=as.numeric(TL))
+
+
 
 return(dets)}
