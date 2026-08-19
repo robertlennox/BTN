@@ -36,6 +36,7 @@ meta <- meta %>%
                 end=EST_TAG_LIFE) %>%
   dplyr::mutate(ID = as.numeric(.data$ID)) %>%
   dplyr::mutate(dmy = lubridate::dmy(.data$dmy)) %>%
+  dplyr::mutate(fatedate=lubridate::parse_date_time(fatedate, c("dmy", "dmy_HM"))) %>%
   dplyr::mutate(end=dmy+lubridate::days(end))
 
 m<-meta %>%
