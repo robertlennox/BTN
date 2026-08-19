@@ -137,7 +137,7 @@ receiver_locations <-
 redeploys <- m %>% dplyr::filter(.data$redeploy == T) %>%
   distinct(.data$ID, .data$dmy, .data$end)
 
-dets <- det %>%
+dets <- detections %>%
   dplyr::mutate(dti = lubridate::date(.data$dt)) %>%
   left_join(receiver_locations, by = c("serial", "dti")) %>%
   dplyr::left_join(
