@@ -16,7 +16,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 
 smoltify_otn<-function(meta, receivers, detections) {ID <-  n_ID <-  key <- value <- Vendor <- Transmitter <- tagCodeType <- NULL
 oid <- lon <- lat <- value <- start <- end <- NULL
-Station <- Receiver <- Habitat <- dmy <- sensor <- SCIENTIFIC_NAME <- NULL
+Station <- Receiver <- Habitat <- end <- dmy <- sensor <- SCIENTIFIC_NAME <- NULL
 Angler <- Project <- fate <- fatedate <- TL <- NULL
 
 meta <- meta %>%
@@ -34,7 +34,9 @@ meta <- meta %>%
                 Sex=SEX,
                 Transmitter=.data$TAG_MODEL,
                 end=EST_TAG_LIFE) %>%
-  dplyr::mutate(ID = as.numeric(.data$ID))
+  dplyr::mutate(ID = as.numeric(.data$ID)) %>%
+  dplyr::mutate(dmy = lubridate::dmy(.data$dmy)) %>%
+  dplyr::mutate(end=dmy+lubridate::days(end))
 
 m<-meta %>%
   dplyr::distinct(
@@ -102,12 +104,7 @@ m<-meta %>%
                                 !grepl("-", .data$Transmitter) | grepl("ID", Transmitter) ~ "ID")) %>%
   dplyr::filter(!is.na(.data$key) | .data$Vendor == "Vemco") %>%
   dplyr::rename(sensor = .data$key, oid = .data$ID,
-                ID = .data$value) %>% mutate(dmy = lubridate::dmy(.data$dmy)) %>%
-  mutate(fatedate = lubridate::parse_date_time(.data$fatedate,
-                                               c("dmy", "dmy_HM")))
-
-m<-m %>%
-  dplyr::mutate(end=dmy+lubridate::days(dmy))
+                ID = .data$value))
 
 rec <-
   receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
@@ -138,9 +135,9 @@ receiver_locations <-
   ) %>% dplyr::rename(dti = .data$value, serial = .data$Receiver)
 
 redeploys <- m %>% dplyr::filter(.data$redeploy == T) %>%
-  distinct(.data$ID, .data$dmy)
+  distinct(.data$ID, .data$dmy, .data$end)
 
-dets <- detections %>%
+dets <- det %>%
   dplyr::mutate(dti = lubridate::date(.data$dt)) %>%
   left_join(receiver_locations, by = c("serial", "dti")) %>%
   dplyr::left_join(
@@ -151,6 +148,7 @@ dets <- detections %>%
         oid,
         tagCodeType,
         dmy,
+        end,
         sensor,
         Spp,
         TL,
@@ -171,11 +169,14 @@ dets <- detections %>%
     by = c("ID", "tagCodeType")
   ) %>%
   dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
+  dplyr::filter(lubridate::date(.data$dt) <= .data$end | is.na(.data$end)) %>%
   dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)) %>%
   bind_rows(
     detections %>% dplyr::filter(ID %in% redeploys$ID) %>%
       left_join(redeploys) %>% dplyr::filter(lubridate::date(.data$dt) >=
-                                               dmy) %>% dplyr::select(-.data$dmy) %>% dplyr::mutate(dti = lubridate::date(.data$dt)) %>%
+                                               dmy) %>%
+      dplyr::filter(lubridate::date(.data$dt) <= .data$end | is.na(.data$end)) %>%
+      dplyr::select(-.data$dmy, -.data$end) %>% dplyr::mutate(dti = lubridate::date(.data$dt)) %>%
       left_join(receiver_locations, by = c("serial", "dti")) %>%
       dplyr::left_join(
         m %>% dplyr::filter(.data$redeploy ==
@@ -184,6 +185,7 @@ dets <- detections %>%
                                 oid,
                                 tagCodeType,
                                 dmy,
+                                end,
                                 sensor,
                                 Spp,
                                 TL,
@@ -203,8 +205,10 @@ dets <- detections %>%
                               ),
         by = c("ID", "tagCodeType")
       ) %>% dplyr::filter(lubridate::date(.data$dt) >=
-                            .data$dmy) %>% dplyr::filter(.data$dt < fatedate |
-                                                           is.na(.data$fatedate))
+                            .data$dmy) %>%
+      dplyr::filter(.data$dt < fatedate |is.na(.data$fatedate)) %>%
+      dplyr::filter(lubridate::date(.data$dt) <= .data$end | is.na(.data$end)) %>%
+
   )
 dets <- dets %>% mutate(
   Data = case_when(
@@ -227,11 +231,9 @@ dets <- dets %>% mutate(
   )
 ) %>% dplyr::select(-eq_temp,-eq_accel,-eq_depth, -temp_slope, -depth_slope, -accel_slope)
 
-dets<-dets %>%
-  dplyr::filter(date(dt)<=end | is.na(end))
 
 dets<-dets %>%
-  dplyr::select(Project, dt, dt_utc, epo, frac, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, Sex, dmy, fate, fatedate) %>%
+  dplyr::select(Project, dt, dt_utc, epo, frac, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, Sex, dmy, end, fate, fatedate) %>%
   mutate(TL=as.numeric(TL))
 
 
