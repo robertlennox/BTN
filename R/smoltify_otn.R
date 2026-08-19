@@ -104,7 +104,7 @@ m<-meta %>%
                                 !grepl("-", .data$Transmitter) | grepl("ID", Transmitter) ~ "ID")) %>%
   dplyr::filter(!is.na(.data$key) | .data$Vendor == "Vemco") %>%
   dplyr::rename(sensor = .data$key, oid = .data$ID,
-                ID = .data$value))
+                ID = .data$value)
 
 rec <-
   receivers %>% as_tibble %>% dplyr::filter(!is.na(.data$lon)) %>%
