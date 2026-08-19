@@ -204,12 +204,11 @@ dets <- det %>%
                                 accel_slope
                               ),
         by = c("ID", "tagCodeType")
-      ) %>% dplyr::filter(lubridate::date(.data$dt) >=
-                            .data$dmy) %>%
-      dplyr::filter(.data$dt < fatedate |is.na(.data$fatedate)) %>%
+      ) %>%
+      dplyr::filter(lubridate::date(.data$dt) >= .data$dmy) %>%
       dplyr::filter(lubridate::date(.data$dt) <= .data$end | is.na(.data$end)) %>%
+      dplyr::filter(.data$dt < fatedate | is.na(.data$fatedate)))
 
-  )
 dets <- dets %>% mutate(
   Data = case_when(
     eq_depth == 1000 &
