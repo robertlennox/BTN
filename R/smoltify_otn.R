@@ -233,7 +233,7 @@ dets <- dets %>% mutate(
 
 
 dets<-dets %>%
-  dplyr::select(Project, dt, dt_utc, epo, frac, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, Sex, dmy, end, fate, fatedate) %>%
+  dplyr::select(Project, dt, dt_utc, epo, frac, tRANSMITTER, oid, ID, Spp, serial, x=lon, y=lat, temperature, noise, sensor, Data, TL, FL, Sex, dmy, end, fate, fatedate) %>%
   mutate(TL=as.numeric(TL))
 
 
